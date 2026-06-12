@@ -22,7 +22,7 @@ function App() {
     const [exchangeRate] = useState(32.5);
     const [showNotifications, setShowNotifications] = useState(false);
 
-    // Sanal Kartlar - Renkleri ve Opaklıkları Aydınlık Moda Tam Uyumlu Hale Getirildi!
+    // Sanal Kartlar - Vercel derleyicisi için optimize edildi
     const [wallets, setWallets] = useState([
         { id: 'cash', name: '💵 Nakit Cüzdan', balance: 4500, color: 'linear-gradient(135deg, #2E7D32, #4CAF50)' },
         { id: 'bank', name: '🏦 Banka Hesabı (Ziraat)', balance: 18500, color: 'linear-gradient(135deg, #1565C0, #2196F3)' },
@@ -64,7 +64,7 @@ function App() {
     });
 
     // Abonelik faturasına kaç gün kaldığını hesaplayan fonksiyon
-    const getDaysUntilDue = (dueDay) => {
+    const getDaysUntilDue = useCallback((dueDay) => {
         const today = new Date();
         const currentDay = today.getDate();
         
@@ -74,10 +74,10 @@ function App() {
             const lastDayOfThisMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
             return (lastDayOfThisMonth - currentDay) + dueDay;
         }
-    };
+    }, []);
 
     // fetchExpenses fonksiyonu
-    const fetchExpenses = async () => {
+    const fetchExpenses = useCallback(async () => {
         try {
             setLoading(true);
             const response = await fetch('http://localhost:5000/api/Expenses');
@@ -89,7 +89,7 @@ function App() {
                     { id: 1, amount: 1000, category: 'Market', description: 'Haftalık alışveriş', isIncome: false, date: new Date().toISOString(), walletId: 'bank' },
                     { id: 2, amount: 5000, category: 'Maaş', description: 'Aylık maaş', isIncome: true, date: new Date().toISOString(), walletId: 'bank' }
                 ];
-                setExpenses(data || demoData);
+                setExpenses(demoData);
             }
         } catch (error) {
             console.error('Veri çekme hatası:', error);
@@ -100,7 +100,7 @@ function App() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
     const filterAndSortExpenses = useCallback(() => {
         let filtered = [...expenses];
@@ -153,7 +153,7 @@ function App() {
 
     useEffect(() => {
         fetchExpenses();
-    }, []);
+    }, [fetchExpenses]);
 
     useEffect(() => {
         filterAndSortExpenses();
@@ -349,7 +349,7 @@ function App() {
     };
 
     const toggleTheme = () => {
-        setDarkMode(!darkMode);
+        setDarkMode(prev => !prev);
     };
 
     // İstatistikler hesapla
@@ -439,15 +439,6 @@ function App() {
 
     const aiAdvice = getAIVisualAdvice();
 
-    if (loading) {
-        return (
-            <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p>Yükleniyor...</p>
-            </div>
-        );
-    }
-
     return (
         <div className="App">
             {/* Header */}
@@ -497,7 +488,7 @@ function App() {
             {showStats && (
                 <div className="stats-container">
                     
-                    {/* === MULTI-WALLET SANAL KART ROW (GÖRÜNÜRLÜK SORUNU GİDERİLDİ!) === */}
+                    {/* === MULTI-WALLET SANAL KART ROW === */}
                     <div style={{ gridColumn: '1 / -1', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '1rem' }}>
                         {wallets.map(wallet => {
                             const displayWalletBalance = isUSD ? wallet.balance / exchangeRate : wallet.balance;
