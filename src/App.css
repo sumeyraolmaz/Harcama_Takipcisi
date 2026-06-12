@@ -1,0 +1,484 @@
+﻿/* ===== MODERN GLASSMORPHISM PEMBE TEMA CSS ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #FFF5F7 0%, #FFEBEF 50%, #F3E5F5 100%);
+    --card-bg: rgba(255, 255, 255, 0.45);
+    --card-border: rgba(255, 182, 193, 0.4);
+    --primary: #FF8FAB;
+    --primary-dark: #FF5C8A;
+    --secondary-dark: #845EC2;
+    --text: #4A2834;
+    --text-light: #8A6875;
+    --text-on-primary: #FFFFFF;
+    --income: #4E9F3D;
+    --expense: #D83A56;
+    --border: rgba(255, 182, 193, 0.3);
+    --glass-blur: blur(12px);
+    --glass-shadow: 0 8px 32px 0 rgba(255, 158, 183, 0.15);
+}
+
+
+/* ===== MODERN TEMA RENK DÜZELTME VE ASİSTAN PARLATMASI ===== */
+:root {
+    --bg-gradient: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 50%, #F3E5F5 100%);
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --primary: #FF8FAB;
+    --primary-dark: #C71585; /* Daha koyu, okunabilir bir pembe */
+    --text: #4A154A; /* Çok daha koyu, net okunabilir metin */
+    --text-light: #6A2F6A; /* Okunabilir açık metin */
+    --glass-blur: blur(15px);
+    --glass-shadow: 0 8px 32px 0 rgba(199, 21, 133, 0.15);
+}
+
+/* Okunabilir kart metinleri */
+.card-description {
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* Asistan Panelini Görünür ve Okunabilir Yapma */
+.ai-assistant-card h4 {
+    color: #C71585 !important;
+}
+
+.ai-assistant-card p {
+    color: #4A154A !important;
+}
+
+
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #1A0B1A 0%, #120A1C 50%, #0A0A14 100%);
+    --card-bg: rgba(26, 15, 26, 0.6);
+    --card-border: rgba(255, 143, 171, 0.15);
+    --primary: #FF8FAB;
+    --primary-dark: #FF7597;
+    --secondary-dark: #B39DDB;
+    --text: #FFE5EC;
+    --text-light: #B392AC;
+    --border: rgba(255, 143, 171, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    transition: background 0.5s ease;
+}
+
+.App {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header Tasarımı */
+.header-section {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+    .header-section h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        text-shadow: 0 4px 10px rgba(255, 92, 138, 0.2);
+        margin-bottom: 0.5rem;
+    }
+
+.subtitle {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+/* Buzlu Cam Kart Yapısı (Glassmorphism) */
+.stat-card, .top-categories-card, .expense-form, .expense-card, .no-results {
+    background: var(--card-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 20px !important;
+    box-shadow: var(--glass-shadow) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease !important;
+}
+
+    .stat-card:hover, .expense-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px 0 rgba(255, 158, 183, 0.25) !important;
+    }
+
+/* Grid Yapıları */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.stat-card {
+    padding: 1.8rem;
+}
+
+.stat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.stat-amount {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+    .stat-amount.income {
+        color: var(--income);
+    }
+
+    .stat-amount.expense {
+        color: var(--expense);
+    }
+
+/* Butonlar ve Kontroller */
+.control-btn, .filter-btn, .submit-button, .toggle-btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--card-border);
+    backdrop-filter: var(--glass-blur);
+    color: var(--text);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+    .control-btn:hover {
+        background: var(--primary);
+        color: white;
+        transform: scale(1.03);
+    }
+
+.add-btn {
+    background: var(--primary-dark) !important;
+    color: white !important;
+}
+
+    .add-btn.cancel {
+        background: #FF6B6B !important;
+    }
+
+/* Kontrol Paneli Grid */
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    background: var(--card-bg);
+    padding: 1.2rem;
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+    backdrop-filter: var(--glass-blur);
+    margin-bottom: 2.5rem;
+}
+
+.search-input, .control-select, .form-input {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--card-border);
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    color: var(--text);
+    outline: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .search-input:focus, .control-select:focus, .form-input:focus {
+        background: white;
+        border-color: var(--primary-dark);
+        box-shadow: 0 0 0 3px rgba(255, 92, 138, 0.15);
+    }
+
+/* Filtre Butonları Şeridi */
+.filter-container {
+    display: flex;
+    gap: 0.8rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    white-space: nowrap;
+    backdrop-filter: var(--glass-blur);
+}
+
+    .filter-btn.active, .filter-btn:hover {
+        background: var(--primary-dark);
+        color: white;
+        box-shadow: 0 4px 15px rgba(255, 92, 138, 0.3);
+    }
+
+/* Form Tasarımı */
+.expense-form-container {
+    margin-bottom: 2.5rem;
+}
+
+.expense-form {
+    padding: 2rem;
+}
+
+.form-title {
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.submit-button {
+    background: var(--primary-dark);
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(255, 92, 138, 0.3);
+}
+
+.cancel-button {
+    background: transparent;
+    border: 1px solid var(--card-border);
+    color: var(--text-light);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* Harcama Listesi Kartları */
+.expenses-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.expense-card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.card-title-section {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.category-emoji {
+    font-size: 2rem;
+    background: rgba(255,255,255,0.6);
+    padding: 0.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+}
+
+.card-category {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.card-type {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.card-actions button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-left: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+    .card-actions button:hover {
+        transform: scale(1.2);
+    }
+
+.card-description {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+}
+
+.card-amount {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+    .card-amount.income {
+        color: var(--income);
+    }
+
+    .card-amount.expense {
+        color: var(--expense);
+    }
+
+/* Toggles Pozisyonları */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.stats-toggle {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.toggle-stats-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: var(--glass-blur);
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    color: var(--text);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: var(--glass-shadow);
+}
+
+    .toggle-stats-btn.active {
+        background: var(--secondary-dark);
+        color: white;
+    }
+
+.toggle-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: var(--glass-blur);
+}
+
+/* Recharts Grafik Kartları Parlatması */
+.chart-card {
+    border-left: 5px solid var(--primary-dark) !important;
+    padding: 1.5rem !important;
+}
+
+.recharts-text {
+    fill: var(--text-light) !important;
+    font-weight: 500;
+}
+
+/* Animasyonlar */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* ===== PRINT (PDF) AYARLARI ===== */
+@media print {
+    .theme-toggle, .currency-toggle, .stats-toggle, .controls-section,
+    .filter-container, .expense-form-container, .card-actions, .footer {
+        display: none !important;
+    }
+
+    .stat-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        background: white !important;
+        page-break-inside: avoid;
+    }
+
+    body {
+        background: white !important;
+    }
+}
+/* ===== KUMBARA KARANLIK MOD AYARI ===== */
+[data-theme="dark"] .savings-kumbara-card {
+    background: linear-gradient(135deg, #1B331E, #0D1F11) !important;
+    border-left-color: #81C784 !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+    [data-theme="dark"] .savings-kumbara-card h4 {
+        color: #81C784 !important;
+    }
+
+    [data-theme="dark"] .savings-kumbara-card p,
+    [data-theme="dark"] .savings-kumbara-card span {
+        color: #A5D6A7 !important;
+    }
